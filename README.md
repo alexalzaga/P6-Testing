@@ -7,41 +7,16 @@ Dado un desarrollo de Spring Boot, es necesario anhadir tests a las siguientes c
 - DNI & Telefono (Unit Tests) (Cada clase tiene un metodo y varias casuisticas para probar)
 - ProcessController (E2E Tests) (2 endpoints)
 
-```
-mvn clean spring-boot:run
+## Desarrollo
 
-curl -v -X POST http://localhost:8080/api/v1/process-step1-legacy \
-   -H "Content-Type: application/x-www-form-urlencoded" \
-   -d "fullName=Juan%20Antonio%20Brena%20Moral&dni=12345678Z&telefono=%2B34%20600903434"
+### Telefono: 
 
-curl -v -X POST http://localhost:8080/api/v1/process-step1 \
-   -H 'Content-Type: application/json' \
-   -d '{"fullName":"Juan Antonio Brena Moral","dni":"12345678Z", "telefono":"+34 600903434"}'
-```
+Para testear las restricciones del campo Telefono, se han comprobado dos entradas correctas (9 numeros y 9 numeros con prefijo internacional delante) y dos incorrectas (>9 numeros y caracteres no validos en la cadena).
 
-## Entrega
+### DNI: 
 
-Sube la practica solucionada a un repositorio de Github.
-y crea un documento en formato Markdown, explicando las casuisticas que se van a probar.
+Para testear las restricciones del campo DNI, se han comprobado una entrada correctas (8 numeros y 1 letra que cumpla la condicion) y tres incorrectas (letras en la cadena, letras no validas al final de la cadena y combinaciones restringidas).
 
-## Criterios de evaluación
+### E2E: 
 
-- 0 -> 5
-    - Entregar en fecha
-    - Subir ejemplo a Github
-    - Ejemplo funcional
-    - Aparentemente funciona
-    - Con README
-- 5 -> 9
-    - La práctica entregada hace lo que se pide
-- 9 -> 10
-    - El alumno explora la materia y añade elementos adicionales
-
-**Nota:** Si el alumno no entrega a tiempo la practica, la calificacion maxima
-sera de un 5 si el retraso es de una semana y no presentado si el retraso es major.
-
-## References
-
-- https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/boot-features-testing.html
-- https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/web/client/TestRestTemplate.html
-- https://www.urlencoder.org/
+Para el end-to-end, se han hecho 4 tests: 2 para la version normal del POST y 2 para la version legacy. En estos se introduce el nombre, telefono y DNI de un usuario, se genera el request, se recoge la respuesta y se confirma si el Body de la misma contiene resultado **OK** (para el test con datos correctos) o si contiene **KO** (para el test con algun dato incorrectos). Para la version legacy, el body devuelve el mensaje en html que nos muestra al hacer submit, por tanto la comprobacion se hace mediante un **contains**, donde se comprueba el mensaje devuelto, que es distinto si el proceso ha sido exitoso o no.
