@@ -1,5 +1,10 @@
 # Practica 6: Testing de una aplicacion de Spring Boot
 
+## Link a Gitpod
+[![](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/alexalzaga/P6-Testing)
+
+Para agilizar la revision de la practica, se ha incluido un script que se ejecutara al abrir el workspace de Gitpod. Al entrar se instalara java 17 (version en la que esta realizada la practica) y, desde la consola, habra que decir **y** (yes) para establecer 17 como la version actual, y **n** (no) en el caso de que nos sugiera actualizar SDKMAN. Despues se ejecutara automaticamente mvn clean package y mvn test, este ultimo mostrara el resultado de los tests implementados.
+
 ## Objetivo de la práctica
 
 Dado un desarrollo de Spring Boot, es necesario anhadir tests a las siguientes clases:
